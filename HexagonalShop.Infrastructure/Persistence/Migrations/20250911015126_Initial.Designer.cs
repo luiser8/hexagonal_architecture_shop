@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HexagonalShop.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppShopContext))]
-    [Migration("20250908224611_Initial")]
+    [Migration("20250911015126_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
