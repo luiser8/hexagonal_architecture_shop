@@ -1,0 +1,6 @@
+@HexagonalShop_HostAddress = http://localhost:5255
+
+GET {{HexagonalShop_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
