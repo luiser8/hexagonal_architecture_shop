@@ -15,12 +15,12 @@ public class PasswordHasher : IPasswordHasher
         {
             rng.GetBytes(salt);
         }
-        
+
         var passwordBytes = Encoding.UTF8.GetBytes(password);
         var saltedPassword = new byte[salt.Length + passwordBytes.Length];
         Buffer.BlockCopy(salt, 0, saltedPassword, 0, salt.Length);
         Buffer.BlockCopy(passwordBytes, 0, saltedPassword, salt.Length, passwordBytes.Length);
-        
+
         using (var sha = SHA256.Create())
         {
             var hash = sha.ComputeHash(saltedPassword);
@@ -35,7 +35,7 @@ public class PasswordHasher : IPasswordHasher
 
         var salt = Convert.FromBase64String(parts[0]);
         var hashStored = Convert.FromBase64String(parts[1]);
-        
+
         var passwordBytes = Encoding.UTF8.GetBytes(password);
         var saltedPassword = new byte[salt.Length + passwordBytes.Length];
         Buffer.BlockCopy(salt, 0, saltedPassword, 0, salt.Length);

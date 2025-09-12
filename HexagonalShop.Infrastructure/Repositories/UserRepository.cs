@@ -30,7 +30,7 @@ public class UserRepository : IUserRepository
         userToUpdate.Email = user.Email;
         userToUpdate.Password = user.Password;
         userToUpdate.Token = user.Token;
-        
+
         await _appShopContext.SaveChangesAsync();
     }
 

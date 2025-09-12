@@ -9,7 +9,7 @@ public class OrderRepository : IOrderRepository
 {
     private readonly AppShopContext _appShopContext;
     public OrderRepository(AppShopContext appShopContext) => _appShopContext = appShopContext;
-    
+
     public async Task<int> Create(Order order)
     {
         _appShopContext.Orders.Add(order);
@@ -24,6 +24,7 @@ public class OrderRepository : IOrderRepository
         _appShopContext.Orders.Remove(orderToDelete);
         await _appShopContext.SaveChangesAsync();
     }
+
     public async Task<Order?> GetByIdempotencyKey(string idempotencyKey) =>
         await _appShopContext.Orders.FirstOrDefaultAsync(x => x.IdempotencyKey == idempotencyKey);
 

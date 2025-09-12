@@ -27,7 +27,7 @@ namespace HexagonalShop.Test.Infrastructure.Repositories;
             // Arrange
             var testEmail = "test@example.com";
             var expectedUser = new User { Id = 1, Email = testEmail, Name = "Test User" };
-            
+
             _context.Users.Add(expectedUser);
             await _context.SaveChangesAsync();
 

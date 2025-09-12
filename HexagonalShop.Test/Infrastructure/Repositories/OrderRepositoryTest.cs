@@ -39,9 +39,25 @@ public class OrderRepositoryTest : IDisposable
         Assert.True(ordersInDb.Id > 0);
     }
 
+
+    [Fact]
+    public async Task Delete_WithValidOrder_RemovesOrderFromDatabase()
+    {
+        // Arrange
+        var newOrder = new Order { Id = 1, IdempotencyKey = Guid.NewGuid().ToString(), IdUser = 1, Status = true, OrderDetails = [ new OrderDetails { IdProduct = 1, Quantity = 10} ] };
+        await _orderRepository.Create(newOrder);
+
+        // Act
+        await _orderRepository.Delete(newOrder.Id);
+
+        // Assert
+        var ordersInDb = await _context.Orders.FirstOrDefaultAsync();
+        Assert.Null(ordersInDb);
+    }
+
     public void Dispose()
     {
-        _context?.Database?.EnsureDeleted();
-        _context?.Dispose();
+        _context.Database.EnsureDeleted();
+        _context.Dispose();
     }
 }

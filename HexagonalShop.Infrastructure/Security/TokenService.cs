@@ -19,14 +19,14 @@ public class TokenService : ITokenService
         _authRepository = authRepository;
         _config = config;
     }
-    
+
     public string GenerateToken(User user)
     {
         var claims = new List<Claim>
         {
-            new("id", user.Id.ToString() ?? string.Empty),
-            new("name", user.Name ?? string.Empty),
-            new("email", user.Email ?? string.Empty)
+            new("id", user.Id.ToString()),
+            new("name", user.Name),
+            new("email", user.Email)
         };
 
         var tokenSecret = _config["Security:Token"] ?? string.Empty;

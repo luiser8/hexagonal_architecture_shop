@@ -22,16 +22,13 @@ public class ProductRepository : IProductRepository
 
     public async Task Update(int id, Product product)
     {
-        var productToUpdate = await _appShopContext.Products.FindAsync(id);
-        if(productToUpdate == null)
-            throw new Exception("Product not found");
-
+        var productToUpdate = await _appShopContext.Products.FindAsync(id) ?? throw new Exception("Product not found");
         productToUpdate.Name = product.Name;
         productToUpdate.Description = product.Description;
         productToUpdate.Stock = product.Stock;
         productToUpdate.Price = product.Price;
         productToUpdate.Status = product.Status;
-        
+
         await _appShopContext.SaveChangesAsync();
     }
 
@@ -48,7 +45,7 @@ public class ProductRepository : IProductRepository
         var productToAddStock = await _appShopContext.Products.FindAsync(productId);
         if(productToAddStock == null)
             throw new Exception("Product not found");
-        
+
         productToAddStock.Stock += quantity;
         await _appShopContext.SaveChangesAsync();
     }
