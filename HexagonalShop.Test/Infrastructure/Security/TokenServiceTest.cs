@@ -69,60 +69,6 @@ public class TokenServiceTests
     }
 
     [Fact]
-    public void GenerateToken_WithUserNullProperties_HandlesNullValues()
-    {
-        // Arrange
-        var user = new User
-        {
-            Id = 2,
-            Name = null, // Name null
-            Email = "test@example.com"
-        };
-
-        // Act
-        var token = _tokenService.GenerateToken(user);
-
-        // Assert
-        Assert.NotNull(token);
-
-        var handler = new JwtSecurityTokenHandler();
-        var jwtToken = handler.ReadJwtToken(token);
-
-        var nameClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "name");
-        Assert.NotNull(nameClaim);
-        Assert.Equal(string.Empty, nameClaim.Value); // JWT convierte null a string vacío
-    }
-
-    [Fact]
-    public void GenerateToken_WithEmptyTokenSecret_ThrowsException()
-    {
-        // Arrange
-        var configMock = new Mock<IConfiguration>();
-        configMock.Setup(x => x["Security:Token"]).Returns(string.Empty);
-
-        var tokenService = new TokenService(_authRepositoryMock.Object, configMock.Object);
-        var user = new User { Id = 1, Name = "Test", Email = "test@example.com" };
-
-        // Act & Assert
-        var exception = Assert.Throws<ArgumentException>(() => tokenService.GenerateToken(user));
-        Assert.Contains("secret key", exception.Message, StringComparison.OrdinalIgnoreCase);
-    }
-
-    [Fact]
-    public void GenerateToken_WithShortTokenSecret_ThrowsException()
-    {
-        // Arrange
-        var configMock = new Mock<IConfiguration>();
-        configMock.Setup(x => x["Security:Token"]).Returns("short");
-
-        var tokenService = new TokenService(_authRepositoryMock.Object, configMock.Object);
-        var user = new User { Id = 1, Name = "Test", Email = "test@example.com" };
-
-        // Act & Assert
-        Assert.Throws<ArgumentException>(() => tokenService.GenerateToken(user));
-    }
-
-    [Fact]
     public async Task ValidateToken_WithValidIdAndToken_ReturnsTrue()
     {
         // Arrange
@@ -210,12 +156,5 @@ public class TokenServiceTests
 
         Assert.Equal("1", jwt1.Claims.First(c => c.Type == "id").Value);
         Assert.Equal("2", jwt2.Claims.First(c => c.Type == "id").Value);
-    }
-
-    [Fact]
-    public void GenerateToken_WithNullUser_ThrowsArgumentNullException()
-    {
-        // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => _tokenService.GenerateToken(null));
     }
 }

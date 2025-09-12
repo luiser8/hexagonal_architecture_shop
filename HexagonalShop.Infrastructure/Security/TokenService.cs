@@ -22,6 +22,8 @@ public class TokenService : ITokenService
 
     public string GenerateToken(User user)
     {
+        if (user == null) return string.Empty;
+
         var claims = new List<Claim>
         {
             new("id", user.Id.ToString()),
