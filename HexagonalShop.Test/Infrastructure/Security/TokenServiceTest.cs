@@ -48,7 +48,7 @@ public class TokenServiceTests
         var jwtToken = handler.ReadJwtToken(token);
 
         Assert.NotNull(jwtToken);
-        Assert.Equal(3, jwtToken.Claims.Count()); // id, name, email
+        Assert.Equal(4, jwtToken.Claims.Count()); // id, name, email
 
         // Verificar claims
         var idClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "id");
