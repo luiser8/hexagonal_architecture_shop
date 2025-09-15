@@ -21,14 +21,14 @@ public class AuthService : IAuthService
     {
         var user = await _authRepository.Login(email);
         if (user == null || !_passwordHasher.VerifyPassword(password, user.Password)) return null;
-        
+
         var token = _tokenService.GenerateToken(user);
         await _authRepository.SaveToken(new User
         {
             Id = user.Id,
             Token = token
         });
-        
+
         return token;
     }
 

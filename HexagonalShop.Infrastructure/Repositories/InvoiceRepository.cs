@@ -8,7 +8,7 @@ public class InvoiceRepository : IInvoiceRepository
 {
     private readonly AppShopContext _appShopContext;
     public InvoiceRepository(AppShopContext appShopContext) => _appShopContext = appShopContext;
-    
+
     public async Task<Invoice?>? GetById(int id) => await _appShopContext.Invoices.FindAsync(id);
 
     public async Task Create(Invoice invoice)
@@ -19,8 +19,7 @@ public class InvoiceRepository : IInvoiceRepository
 
     public async Task Delete(int id)
     {
-        var invoiceToDelete = await _appShopContext.Invoices.FindAsync(id);
-        if (invoiceToDelete == null) throw new Exception("Invoice not found");
+        var invoiceToDelete = await _appShopContext.Invoices.FindAsync(id) ?? throw new Exception("Invoice not found");
         _appShopContext.Invoices.Remove(invoiceToDelete);
         await _appShopContext.SaveChangesAsync();
     }

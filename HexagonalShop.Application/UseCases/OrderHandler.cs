@@ -24,7 +24,7 @@ public class OrderHandler
     {
         var idempotencyKey = Guid.NewGuid().ToString();
         order.IdempotencyKey = idempotencyKey;
-        
+
         foreach (var orderDetail in order.OrderDetails)
         {
             var product = await _productService.GetById(orderDetail.IdProduct);
@@ -33,11 +33,11 @@ public class OrderHandler
 
             if (product.Stock < orderDetail.Quantity)
                 throw new Exception($"Insufficient stock for product {product.Id}");
-            
+
             product.Stock -= orderDetail.Quantity;
             await _productService.Update(orderDetail.IdProduct, product);
         }
-        
+
         var orderWithIdempotency = await _orderService.GetByIdempotencyKey(idempotencyKey);
         if (orderWithIdempotency == null)
         {
@@ -53,7 +53,7 @@ public class OrderHandler
             };
 
             var orderCreated = await _orderService.Create(newOrder);
-            
+
             decimal subTotal = 0;
             foreach (var od in order.OrderDetails)
             {
@@ -63,7 +63,7 @@ public class OrderHandler
 
             var iva = subTotal * 0.21m;
             var total = subTotal + iva;
-            
+
             var invoice = new Invoice
             {
                 IdOrder = orderCreated,

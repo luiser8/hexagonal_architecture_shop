@@ -8,7 +8,7 @@ public class ProductService : IProductService
 {
     private readonly IProductRepository _productRepository;
     public ProductService(IProductRepository productRepository) => _productRepository = productRepository;
-    
+
     public async Task<List<Product>> GetAll() => await _productRepository.GetAll();
     public async Task<Product?> GetById(int id) => await _productRepository.GetById(id);
     public async Task Create(Product product) => await _productRepository.Create(product);
