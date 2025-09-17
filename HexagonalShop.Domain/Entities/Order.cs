@@ -9,7 +9,7 @@ public class Order
     [Key]
     [Column("id")]
     public int Id { get; set; }
-    
+
     [Column("idempotency_key")]
     public string? IdempotencyKey { get; set; } = Guid.Empty.ToString();
 

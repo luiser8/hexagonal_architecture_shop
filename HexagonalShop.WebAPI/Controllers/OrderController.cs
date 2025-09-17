@@ -1,10 +1,10 @@
 using HexagonalShop.Application.UseCases;
 using HexagonalShop.Application.DTOs;
-using HexagonalShop.API.Middleware;
+using HexagonalShop.WebAPI.Middleware;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HexagonalShop.API.Controllers;
+namespace HexagonalShop.WebAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -12,25 +12,25 @@ public class OrderController : ControllerBase
 {
     private readonly OrderHandler _orderHandler;
     public OrderController(OrderHandler orderHandler) => _orderHandler = orderHandler;
-    
+
     [HttpGet("all"), Authorize]
     public async Task<IActionResult> GetAll()
     {
         return Ok(await _orderHandler.ExecuteAll());
     }
-    
+
     [HttpGet, Authorize]
     public async Task<IActionResult> Get(int id)
     {
         return Ok(await _orderHandler.ExecuteById(id));
     }
-    
+
     [HttpGet("byUser/{idUser}"), Authorize]
     public async Task<IActionResult> GetByUser(int idUser)
     {
         return Ok(await _orderHandler.ExecuteByUser(idUser));
     }
-    
+
     [HttpPost("add-order")]
     public async Task<IActionResult> Post([FromBody] OrderDto order)
     {

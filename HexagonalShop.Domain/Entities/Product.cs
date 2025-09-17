@@ -21,7 +21,7 @@ public class Product
 
     [Column("stock")]
     public int Stock { get; set; }
-    
+
     [Column("price")]
     public decimal Price { get; set; }
 

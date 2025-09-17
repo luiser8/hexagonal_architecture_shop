@@ -20,7 +20,7 @@ public class UserService : IUserService
     public async Task Create(User user)
     {
         user.Password = _passwordHasher.HashPassword(user.Password);
-        await _userRepository.Create(user); 
+        await _userRepository.Create(user);
     }
     public async Task Update(int id, User user) => await _userRepository.Update(id, user);
     public async Task Delete(int id) => await _userRepository.Delete(id);

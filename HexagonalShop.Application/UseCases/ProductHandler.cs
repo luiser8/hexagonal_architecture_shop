@@ -8,9 +8,9 @@ public class ProductHandler
 {
     private readonly IProductService _productService;
     public ProductHandler(IProductService productService) => _productService = productService;
-    
+
     public async Task<Product?>? ExecuteById(int id) => await _productService.GetById(id);
-    public async Task<List<Product>>? ExecuteAll() => await _productService.GetAll();
+    public async Task<List<Product>> ExecuteAll() => await _productService.GetAll();
 
     public async Task ExecuteSave(ProductDto product)
     {
@@ -22,7 +22,7 @@ public class ProductHandler
             Price = product.Price,
             Status = product.Status,
         });
-    } 
+    }
     public async Task ExecuteDelete(int id) => await _productService.Delete(id);
 
     public async Task ExecuteUpdate(int id, ProductDto product)

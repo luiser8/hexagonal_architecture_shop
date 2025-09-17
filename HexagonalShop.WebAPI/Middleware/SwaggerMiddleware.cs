@@ -1,6 +1,6 @@
 using Microsoft.OpenApi.Models;
 
-namespace HexagonalShop.API.Middleware;
+namespace HexagonalShop.WebAPI.Middleware;
 
 public static class SwaggerMiddleware
 {

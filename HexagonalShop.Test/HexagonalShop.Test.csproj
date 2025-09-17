@@ -17,11 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Application\" />
-      <Folder Include="WebAPI\" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\HexagonalShop.Domain\HexagonalShop.Domain.csproj" />
         <ProjectReference Include="..\HexagonalShop.Application\HexagonalShop.Application.csproj" />
         <ProjectReference Include="..\HexagonalShop.Infrastructure\HexagonalShop.Infrastructure.csproj" />

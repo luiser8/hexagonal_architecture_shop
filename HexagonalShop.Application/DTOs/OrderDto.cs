@@ -8,5 +8,5 @@ public class OrderDto
     public string? IdempotencyKey { get; set; } = Guid.Empty.ToString();
     public bool? Status { get; set; } = true;
     public DateTime? SystemDate { get; set; } = new DateTime();
-    public List<OrderDetailsDto>  OrderDetails { get; set; } = [];
+    public List<OrderDetailsDto> OrderDetails { get; set; } = [];
 }

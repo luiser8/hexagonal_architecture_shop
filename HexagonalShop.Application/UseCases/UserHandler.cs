@@ -20,5 +20,5 @@ public class UserHandler
             Password = user.Password,
             Token = string.Empty
         });
-    } 
+    }
 }

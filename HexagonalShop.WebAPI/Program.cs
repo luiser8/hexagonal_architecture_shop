@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using HexagonalShop.API.Middleware;
 using HexagonalShop.Domain.Interfaces;
 using HexagonalShop.Domain.Ports;
 using HexagonalShop.Infrastructure.Services;

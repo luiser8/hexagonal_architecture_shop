@@ -18,8 +18,8 @@ public class OrderHandler
     }
 
     public async Task<Order?>? ExecuteById(int order) => await _orderService.GetById(order);
-    public async Task<List<Order>>? ExecuteAll() => await _orderService.GetAll();
-    public async Task<List<Order>>? ExecuteByUser(int idUser) => await _orderService.GetByUser(idUser);
+    public async Task<List<Order>> ExecuteAll() => await _orderService.GetAll();
+    public async Task<List<Order>> ExecuteByUser(int idUser) => await _orderService.GetByUser(idUser);
     public async Task ExecuteSave(OrderDto order)
     {
         var idempotencyKey = Guid.NewGuid().ToString();

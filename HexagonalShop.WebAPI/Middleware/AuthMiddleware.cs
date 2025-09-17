@@ -33,7 +33,7 @@ public class AuthMiddleware
             return;
         }
 
-        var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+        var authHeader = context.Request.Headers.Authorization.FirstOrDefault();
         var jwtToken = authHeader?.Replace("Bearer ", "");
 
         if (string.IsNullOrEmpty(jwtToken))
@@ -57,10 +57,10 @@ public class AuthMiddleware
                 ValidateIssuer = false,
                 ClockSkew = TimeSpan.FromMinutes(1)
             };
-            
-            var principal = tokenHandler.ValidateToken(jwtToken, validations, out var validatedToken);
+
+            var principal = tokenHandler.ValidateToken(jwtToken, validations, out _);
             context.User = principal;
-            
+
             var userId = context.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
             if (string.IsNullOrEmpty(userId))
             {
@@ -68,7 +68,7 @@ public class AuthMiddleware
                 await context.Response.WriteAsync("User identity not found");
                 return;
             }
-            
+
             var isTokenValid = await tokenService.ValidateToken(Convert.ToInt32(userId), jwtToken);
             if (!isTokenValid)
             {
@@ -100,7 +100,7 @@ public class AuthMiddleware
             }));
             return;
         }
-        
+
         await _next(context);
     }
 }

@@ -1,4 +1,4 @@
-namespace HexagonalShop.API.Middleware;
+namespace HexagonalShop.WebAPI.Middleware;
 
 public class SecurityHeaderMiddleware(RequestDelegate next)
 {
