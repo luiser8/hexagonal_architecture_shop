@@ -3,7 +3,7 @@ using HexagonalShop.Application.UseCases;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HexagonalShop.API.Controllers;
+namespace HexagonalShop.WebAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -11,19 +11,19 @@ public class ProductController : ControllerBase
 {
     private readonly ProductHandler _productHandler;
     public ProductController(ProductHandler productHandler) => _productHandler = productHandler;
-    
+
     [HttpGet("all"), Authorize]
     public async Task<IActionResult> GetAll()
     {
         return Ok(await _productHandler.ExecuteAll());
     }
-    
+
     [HttpGet, Authorize]
     public async Task<IActionResult> Get(int id)
     {
         return Ok(await _productHandler.ExecuteById(id));
     }
-    
+
     [HttpPost("add"), Authorize]
     public async Task<IActionResult> Post([FromBody] ProductDto product)
     {
